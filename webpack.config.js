@@ -8,7 +8,7 @@ module.exports = {
     app: ['babel-polyfill', `${SRC_DIR}/index.jsx`]
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'fundle.js',
     path: DIST_DIR
   }, 
   module: {
