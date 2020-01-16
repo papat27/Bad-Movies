@@ -5,6 +5,22 @@ import $ from 'jquery';
 import Search from './components/Search.jsx'
 import Movies from './components/Movies.jsx'
 
+/* 
+  BODY REQS FOR AXIOS REQUESTS TO SERVER:
+    All routes start with /movies
+      get to /search: nothing
+        returns: array of objects from tmdb request
+      get to /genres: nothing
+        returns: array of objects { id: int, name: string }
+      post to /save: { title, year, rating, tmdb_id }
+        returns: a sendstatus '201'
+      delete to /delete: { tmdb_id }
+        returns: a sendstatus '204'
+      get to /favorites: nothing
+        returns: an array of objects which is the result of querying from table
+*/
+
+
 class App extends React.Component {
   constructor(props) {
   	super(props)
@@ -26,6 +42,7 @@ class App extends React.Component {
   }
 
   deleteMovie() {
+   
     // same as above but do something diff
   }
 
