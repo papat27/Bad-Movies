@@ -18,8 +18,9 @@ let getGenresFromTMDB = function () {
 }
 
 let getMoviesFromTMDB = function (genre_id) {
+  //console.log(genre_id);
   let urlParams = {
-    sort_by: 'popularity.asc',
+    sort_by: 'vote_average.asc',
     with_genres: genre_id
   }
   let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${urlParams.sort_by}&include_adult=false&include_video=false&page=1&with_genres=${urlParams.with_genres}`;

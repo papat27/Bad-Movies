@@ -16,27 +16,28 @@ module.exports = {
     // and sort them by horrible votes using the search parameters in the API
 
     apiHelpers.getGenresFromTMDB()
-      .then(({data}) => {
-        for (let i = 0; i < data.genres.length; i++) {
-          if (data.genres[i].name === req.body.genre) {
-            return data.genres[i].id;
+      .catch((err) => {
+        console.error('Error from getting genres from TMDB in getSearch method in movieController', err);
+        res.sendStatus(503);
+      })
+      .then((data) => {
+        for (let i = 0; i < data.data.genres.length; i++) {
+          if (data.data.genres[i].id === parseInt(req.query.genre_id)) {
+            return data.data.genres[i].id;
           }
         }
       })
-      .catch((err) => {
-        console.error(err);
-        res.sendStatus(503);
-      })
       .then((genre_id) => {
+        console.log(genre_id);
         return apiHelpers.getMoviesFromTMDB(genre_id);
       })
       .then((data) => {
         //send objects with desired mySQL info instead
-        console.log(data.data.results);
+        // console.log(data.data.results);
         res.send(data.data.results);
       })
       .catch((err) => {
-        console.error(err);
+        console.error('Error from getting movies from TMDB in getSearch method in movieController', err);
         res.sendStatus(500)
       });
   },
@@ -67,7 +68,9 @@ module.exports = {
       })
   },
   deleteMovie: (req, res) => {
-    movieModel.deleteMovie(req.body)
+    // console.log(req.query);
+    // res.sendStatus(580);
+    movieModel.deleteMovie(req.query)
       .then((data) => {
         //console.log(data);
         res.sendStatus(204);

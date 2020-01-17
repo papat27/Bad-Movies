@@ -4,32 +4,33 @@
 //const sqlDb = require('../../db/sql');
 const Sequelize = require('sequelize')
 const sequelize = require('../../db/sql');
+const {Favorite} = require('../../db/sql');
 //For Mongo
 // const mongoDb = require('../../db/mongodb')
 
 //const { host, user, password, database } = require('../../kongfig.js');
 //console.log(sequelize);
-let Favorite = sequelize.define('favorites', {
-  title: {
-    type: Sequelize.STRING,
-    allowNull: true,
-    defaultValue: null
-  },
-  year: {
-    type: Sequelize.INTEGER,
-    allowNull: true,
-    defaultValue: 0
-  },
-  rating: {
-    type: Sequelize.DECIMAL,
-    allowNull: true,
-    defaultValue: 0
-  },
-  tmdb_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  }
-});
+// let Favorite = sequelize.define('favorites', {
+//   title: {
+//     type: Sequelize.STRING,
+//     allowNull: true,
+//     defaultValue: null
+//   },
+//   year: {
+//     type: Sequelize.INTEGER,
+//     allowNull: true,
+//     defaultValue: 0
+//   },
+//   rating: {
+//     type: Sequelize.DECIMAL,
+//     allowNull: true,
+//     defaultValue: 0
+//   },
+//   tmdb_id: {
+//     type: Sequelize.INTEGER,
+//     allowNull: false,
+//   }
+// });
 //uncomment this to test that movie.controller.saveMovie is actually able to insert a row
 //Favorite.sync({force: true});
 
@@ -41,20 +42,21 @@ module.exports = {
       },
       defaults: {
         title: movie.title,
-        year: movie.year,
+        movie_year: movie.movie_year,
         rating: movie.rating,
-        tmdb_id: movie.tmdb_id
+        tmdb_id: movie.tmdb_id,
+        poster_path: movie.poster_path
       }
     }
     //error somewhere here?
     return Favorite.findOrCreate(options)
+      // .catch((err) => {
+      //   console.error('this error is in findorcreate', err);
+      //   //throw new Error('dang...gn');
+      // })
       // .then((data) => {
       //   console.log(movie.tmdb_id);
       //   return Favorite.findAll({where: {tmdb_id: movie.tmdb_id}});
-      // })
-      // .catch((err) => {
-      //   console.error('this error is in findorcreate', err);
-      //   throw new Error('dang...gn');
       // })
       // .then((data) => {
       //   console.log(data);
